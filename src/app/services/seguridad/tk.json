@@ -911,3 +911,564 @@
     "tiempo": "2022-04-03T19:07:05.851Z"
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  "_id": {
+    "$oid": "648cc050ca6eb085ca9e6d03"
+  },
+  "cedula": "00000005",
+  "nombre": "Inea",
+  "login": "inea",
+  "correo": "",
+  "clave": "393a9f8b0b9d1b751bffbe860fe18d19f0639cbae7bc42123f187cf7f5187322",
+  "sucursal": "Todas",
+  "direccion": "Principal",
+  "cargo": "Desarrollador",
+  "telefono": "",
+  "sistema": "INEA-Te-Escucha",
+  "token": "Autorizado",
+  "Perfil": {
+    "descripcion": "Analista"
+  },
+  "Aplicacion": [
+    {
+      "id": "ID-005",
+      "nombre": "Gestion de Documentos",
+      "url": "http://localhost/app/gdoc/index.html?tk=$0",
+      "comentario": "Usuario Almacen",
+      "version": "V1.0.0.0",
+      "autor": "Code-Epic Technologies",
+      "Rol": {
+        "descripcion": "Usuario Sistema",
+        "Menu": [
+          {
+            "url": "/principal",
+            "js": "",
+            "icono": "ni-tv-2",
+            "descripcion": "Principal",
+            "nombre": "Principal",
+            "accion": "Principal()",
+            "clase": "text-pink",
+            "color": "",
+            "SubMenu": [],
+            "Privilegios": []
+          },
+          {
+            "url": "/servicios",
+            "js": "",
+            "icono": "ni-building",
+            "descripcion": "Servicios",
+            "nombre": "Servicios",
+            "accion": "",
+            "clase": "text-blue",
+            "color": "",
+            "Privilegio": [],
+            "SubMenu": [
+              {
+                "url": "/pilotaje",
+                "js": "",
+                "descripcion": "Pilotaje",
+                "icono": "pilotaje",
+                "nombre": "Pilotaje",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": [
+                  {
+                    "descripcion": "Registrados",
+                    "accion": "Registrados()",
+                    "directivas": ""
+                  }
+                ]
+              },
+              {
+                "url": "/lanchaje",
+                "js": "",
+                "descripcion": "Lanchaje",
+                "icono": "lanchaje",
+                "nombre": "Lanchaje",
+                "accion": "CargarUrl('control', 'buzon')",
+                "clase": "f-left",
+                "color": "bg-c-blue",
+                "Privilegios": []
+              },
+              {
+                "url": "/remolcadores",
+                "js": "",
+                "descripcion": "Remolcadores",
+                "icono": "remolcadores",
+                "nombre": "Remolcadores",
+                "accion": "CargarUrl('control', 'pendientes')",
+                "clase": "f-left",
+                "color": "bg-purple",
+                "Privilegios": []
+              },
+              {
+                "url": "/capitanias",
+                "js": "",
+                "descripcion": "Capitanias de Puerto",
+                "icono": "capitanias",
+                "nombre": "Capitanias de Puerto",
+                "accion": "CargarUrl('control', 'pendientes')",
+                "clase": "f-left",
+                "color": "bg-purple",
+                "Privilegios": []
+              },
+              {
+                "url": "/cenave",
+                "js": "",
+                "descripcion": "CENAVE",
+                "icono": "cenave",
+                "nombre": "CENAVE",
+                "accion": "CargarUrl('control', 'pendientes')",
+                "clase": "f-left",
+                "color": "bg-purple",
+                "Privilegios": []
+              }
+            ]
+          },
+          {
+            "url": "/tramites",
+            "js": "",
+            "icono": "ni-delivery-fast",
+            "descripcion": "Tramites",
+            "nombre": "Tramites",
+            "accion": "",
+            "clase": "text-green",
+            "color": "",
+            "Privilegio": [],
+            "SubMenu": [
+              {
+                "url": "/gente",
+                "js": "",
+                "descripcion": "Gente de Mar",
+                "icono": "gente",
+                "nombre": "Gente de Mar",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": []
+              },
+              {
+                "url": "/empresas",
+                "js": "",
+                "descripcion": "Empresas",
+                "icono": "empresas",
+                "nombre": "Empresas",
+                "accion": "CargarUrl('control', 'buzon')",
+                "clase": "f-left",
+                "color": "bg-c-blue",
+                "Privilegios": []
+              },
+              {
+                "url": "/renave",
+                "js": "",
+                "descripcion": "Renave",
+                "icono": "renave",
+                "nombre": "Renave",
+                "accion": "CargarUrl('control', 'salidas')",
+                "clase": "f-left",
+                "color": "bg-c-pink",
+                "Privilegios": []
+              },
+              {
+                "url": "/industria",
+                "js": "",
+                "descripcion": "Industria Naval",
+                "icono": "industria",
+                "nombre": "Industria Naval",
+                "accion": "CargarUrl('control', 'pendientes')",
+                "clase": "f-left",
+                "color": "bg-purple",
+                "Privilegios": []
+              },
+              {
+                "url": "/seguridad",
+                "js": "",
+                "descripcion": "Seguridad Maritima",
+                "icono": "seguridad",
+                "nombre": "Seguridad",
+                "accion": "CargarUrl('control', 'pendientes')",
+                "clase": "f-left",
+                "color": "bg-purple",
+                "Privilegios": []
+              },
+              {
+                "url": "/puertos",
+                "js": "",
+                "descripcion": "Puertos",
+                "icono": "puertos",
+                "nombre": "Puertos",
+                "accion": "CargarUrl('control', 'pendientes')",
+                "clase": "f-left",
+                "color": "bg-purple",
+                "Privilegios": []
+              },
+              {
+                "url": "/certificacion",
+                "js": "",
+                "descripcion": "Certificacion",
+                "icono": "certificacion",
+                "nombre": "Certificacion",
+                "accion": "CargarUrl('control', 'pendientes')",
+                "clase": "f-left",
+                "color": "bg-purple",
+                "Privilegios": []
+              }
+            ]
+          },
+          {
+            "url": "/gestion",
+            "js": "",
+            "icono": "ni-cart",
+            "descripcion": "Gestion Comunicacional",
+            "nombre": "Comunicacional",
+            "accion": "",
+            "clase": "text-red",
+            "color": "",
+            "Privilegio": [],
+            "SubMenu": [
+              {
+                "url": "/cbuzon",
+                "js": "",
+                "descripcion": "Solicitudes",
+                "icono": "fa fa-plus-circle",
+                "nombre": "Solicitudes",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": []
+              }
+            ]
+          },
+          {
+            "url": "/calidad",
+            "js": "",
+            "icono": "ni-cart",
+            "descripcion": "Calidad y Riesgo",
+            "nombre": "Calidad y Riesgo",
+            "accion": "",
+            "clase": "text-grey",
+            "color": "",
+            "Privilegio": [],
+            "SubMenu": [
+              {
+                "url": "/cbuzon",
+                "js": "",
+                "descripcion": "Solicitudes",
+                "icono": "fa fa-plus-circle",
+                "nombre": "Solicitudes",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": []
+              },
+              {
+                "url": "/cmonitor",
+                "js": "",
+                "descripcion": "Monitor de sistema",
+                "icono": "fa fa-plus-circle",
+                "nombre": "Monitor de sistema",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": []
+              }
+            ]
+          },
+          {
+            "url": "/recaudacion",
+            "js": "",
+            "icono": "ni-cart",
+            "descripcion": "Direccion de Recaudacion",
+            "nombre": "Recaudacion",
+            "accion": "",
+            "clase": "text-brown",
+            "color": "",
+            "Privilegio": [],
+            "SubMenu": [
+              {
+                "url": "/cbuzon",
+                "js": "",
+                "descripcion": "Solicitudes",
+                "icono": "fa fa-plus-circle",
+                "nombre": "Solicitudes",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": []
+              }
+            ]
+          },
+          {
+            "url": "/tecnologia",
+            "js": "",
+            "icono": "ni-cart",
+            "descripcion": "Oficina de Tecnologia",
+            "nombre": "Tecnologia",
+            "accion": "",
+            "clase": "text-blue",
+            "color": "",
+            "Privilegio": [],
+            "SubMenu": [
+              {
+                "url": "/cbuzon",
+                "js": "",
+                "descripcion": "Solicitudes",
+                "icono": "fa fa-plus-circle",
+                "nombre": "Solicitudes",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": []
+              }
+            ]
+          },
+          {
+            "url": "/consultoria",
+            "js": "",
+            "icono": "ni-cart",
+            "descripcion": "Consultoria Juridico",
+            "nombre": "Juridica",
+            "accion": "",
+            "clase": "text-blue",
+            "color": "",
+            "Privilegio": [],
+            "SubMenu": [
+              {
+                "url": "/cbuzon",
+                "js": "",
+                "descripcion": "Solicitudes",
+                "icono": "fa fa-plus-circle",
+                "nombre": "Solicitudes",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": []
+              }
+            ]
+          },
+          {
+            "url": "/auditoria",
+            "js": "",
+            "icono": "ni-cart",
+            "descripcion": "Oficina de Auditoria",
+            "nombre": "Auditoria",
+            "accion": "",
+            "clase": "text-red",
+            "color": "",
+            "Privilegio": [],
+            "SubMenu": [
+              {
+                "url": "/cbuzon",
+                "js": "",
+                "descripcion": "Solicitudes",
+                "icono": "fa fa-plus-circle",
+                "nombre": "Solicitudes",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": []
+              }
+            ]
+          },
+          {
+            "url": "/gestionconocimiento",
+            "js": "",
+            "icono": "ni-cart",
+            "descripcion": "Gestion del Conocimiento",
+            "nombre": "Conocimiento",
+            "accion": "",
+            "clase": "text-blue",
+            "color": "",
+            "Privilegio": [],
+            "SubMenu": [
+              {
+                "url": "/cbuzon",
+                "js": "",
+                "descripcion": "Solicitudes",
+                "icono": "fa fa-plus-circle",
+                "nombre": "Solicitudes",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": []
+              }
+            ]
+          },
+          {
+            "url": "/desarrollo",
+            "js": "",
+            "icono": "ni-cart",
+            "descripcion": "Direccion del Desarrollo",
+            "nombre": "Desarrollo",
+            "accion": "",
+            "clase": "text-blue",
+            "color": "",
+            "Privilegio": [],
+            "SubMenu": [
+              {
+                "url": "/cbuzon",
+                "js": "",
+                "descripcion": "Solicitudes",
+                "icono": "fa fa-plus-circle",
+                "nombre": "Solicitudes",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": []
+              }
+            ]
+          },
+          {
+            "url": "/reportes",
+            "js": "",
+            "icono": "ni-cart",
+            "descripcion": "Reportes",
+            "nombre": "Reportes",
+            "accion": "",
+            "clase": "text-orange",
+            "color": "",
+            "Privilegio": [],
+            "SubMenu": [
+              {
+                "url": "/registrar",
+                "js": "",
+                "descripcion": "Documentos Registrados",
+                "icono": "fa fa-plus-circle",
+                "nombre": "Registrados",
+                "accion": "CargarUrl('control', 'registrar')",
+                "clase": "f-left",
+                "color": "bg-c-green",
+                "Privilegios": []
+              },
+              {
+                "url": "/buzon",
+                "js": "",
+                "descripcion": "Documentos Recibidos",
+                "icono": "fa fa-inbox",
+                "nombre": "Recibidos",
+                "accion": "CargarUrl('control', 'buzon')",
+                "clase": "f-left",
+                "color": "bg-c-blue",
+                "Privilegios": []
+              },
+              {
+                "url": "/salidas",
+                "js": "",
+                "descripcion": "Salidas Realizadas",
+                "icono": "fa fa-share",
+                "nombre": "Salidas",
+                "accion": "CargarUrl('control', 'salidas')",
+                "clase": "f-left",
+                "color": "bg-c-pink",
+                "Privilegios": []
+              },
+              {
+                "url": "/configuracion",
+                "js": "",
+                "descripcion": " Seguimiento",
+                "icono": "fa fa-envelope-open",
+                "nombre": "Seguimiento",
+                "accion": "CargarUrl('control', 'Configuracion')",
+                "clase": "f-left",
+                "color": "bg-purple",
+                "Privilegios": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "firmadigital": {
+    "direccionmac": "*",
+    "direccionip": "*",
+    "tiempo": "2022-04-03T19:07:05.851Z"
+  }
+}

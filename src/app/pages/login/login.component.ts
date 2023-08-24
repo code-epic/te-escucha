@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
     await this.loginService.getLogin(this.usuario, this.clave).subscribe(
       (data) => { // Success
         this.itk = data;
+        console.log(data)
         sessionStorage.setItem("token", this.itk.token );
         this.ngxService.stopLoader("loader-login");
         this.router.navigate(['/principal']);

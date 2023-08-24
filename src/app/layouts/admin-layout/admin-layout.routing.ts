@@ -11,6 +11,8 @@ import { TramitesComponent } from 'src/app/pages/principal/tramites/tramites.com
 import { RenaveComponent } from 'src/app/pages/principal/tramites/renave/renave.component';
 import { CertificacionComponent } from 'src/app/pages/principal/tramites/certificacion/certificacion.component';
 import { PilotajeComponent } from 'src/app/pages/principal/servicios/pilotaje/pilotaje.component';
+import { BuzonComponent } from 'src/app/pages/generico/buzon/buzon.component';
+import { AtencionComponent } from 'src/app/pages/principal/atencion/atencion.component';
 
 export const AdminLayoutRoutes: Routes = [
     {
@@ -38,16 +40,16 @@ export const AdminLayoutRoutes: Routes = [
         component: ServiciosComponent,
         canActivate: [AuthGuardGuard]
     }, {
-        path: 'pilotaje',
-        component: PilotajeComponent,
+        path: 'buzon/:id',
+        component: BuzonComponent,
         canActivate: [AuthGuardGuard]
     }, {
         path: 'tramites',
         component: TramitesComponent,
         canActivate: [AuthGuardGuard]
     }, {
-        path: 'renave',
-        component: RenaveComponent,
+        path: 'atencion',
+        component: AtencionComponent,
         canActivate: [AuthGuardGuard]
     }, {
         path: 'certificacion',

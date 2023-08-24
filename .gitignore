@@ -37,13 +37,13 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
-
+.angular
 # Dependency directories
 node_modules/
 package-lock.json
 jspm_packages/
 
-# Snowpack dependency directory (https://snowpack.dev/)
+dk Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
 # TypeScript cache

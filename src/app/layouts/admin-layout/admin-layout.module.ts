@@ -24,12 +24,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatCommonModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
-import {MatStepperModule} from '@angular/material/stepper';
-
-
+import { MatStepperModule} from '@angular/material/stepper';
+import { MatCommonModule, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { CambiarclaveComponent } from 'src/app/pages/generico/perfil/cambiarclave/cambiarclave.component';
 import { HechiceroComponent } from 'src/app/pages/generico/hechicero/hechicero.component';
@@ -40,6 +39,8 @@ import { ServiciosComponent } from 'src/app/pages/principal/servicios/servicios.
 import { TramitesComponent } from 'src/app/pages/principal/tramites/tramites.component';
 import { CertificacionComponent } from 'src/app/pages/principal/tramites/certificacion/certificacion.component';
 import { RenaveComponent } from 'src/app/pages/principal/tramites/renave/renave.component';
+import { BuzonComponent } from 'src/app/pages/generico/buzon/buzon.component';
+import { AtencionComponent } from 'src/app/pages/principal/atencion/atencion.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   "bgsColor": "#79c680",
@@ -104,6 +105,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MatToolbarModule,
     MatSelectModule,
     MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
   ],
   declarations: [
@@ -120,7 +123,13 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     TramitesComponent,
     CertificacionComponent,
     RenaveComponent,
-  ]
+    BuzonComponent,
+    AtencionComponent
+  ],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+    
+  ],
 })
 
 export class AdminLayoutModule {}

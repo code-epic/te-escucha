@@ -28,7 +28,13 @@ export class UtilService {
   }
   //retorna fecha en formato Dia/Mes/Anio
   ConvertirFecha(fecha: any): string {
-    return fecha.year + '-' + + fecha.month + '-' + fecha.day
+    console.log('Imprimiendo plazo ',fecha)
+    if (fecha == undefined ){
+      return  '1985-07-23' 
+    }
+    return fecha.year + '-' + fecha.month + '-' + fecha.day
+ 
+      
   }
 
 
@@ -69,5 +75,50 @@ export class UtilService {
     return cadena.toLowerCase().replace(/á/g, "a").replace(/ê/g, "i").replace(/í/g, "i").replace(/ó/g, "o").replace(/ú/g, "u")
   }
 
+
+  //Recibe  Fecha Formato: AAAA-MM-DD 00:00:00
+  //Retorna Fecha Formato: DD/MM/AAAA
+  ConvertirFechaHumana(f) {
+    var ISODate = new Date(f).toISOString();
+    var fe = ISODate.substr(0, 10);
+    var fa = fe.split("-");
+    if (fa[0] != "0001") {
+      return fa[2] + "/" + fa[1] + "/" + fa[0];
+    } else {
+      return "1900-01-01";
+    }
+    //return fa[2] + "/" + fa[1] + "/" + fa[0];
+  }
+
+  //Recibe  Fecha Formato: DD/MM/AAAA
+  //Retorna Fecha Formato: AAAA-MM-DD
+  ConvertirFechaDB(f: any): string {
+    var faux = "";
+    if (typeof f != "object") {
+      faux = "1900-01-01";
+      if (f != undefined && f != "") {
+        var fx = f.split("/");
+        faux = fx[2] + "-" + fx[1] + "-" + fx[0];
+      }
+      return faux;
+    } else {
+      var ISODate = new Date(f).toISOString();
+      var fe = ISODate.substr(0, 10);
+      var fa = fe.split("-");
+      if (fa[0] != "0001") {
+        return fa[0] + "-" + fa[1] + "-" + fa[2];
+      } else {
+        return "1900-01-01";
+      }
+    }
+  }
+
+  //AAAA-MM-DD
+  CalcuarDiasTranscurridos(fechai, fechaf): number {
+    var fechaInicio = new Date(fechai).getTime();
+    var fechaFin = new Date(fechaf).getTime();
+    var diff = fechaFin - fechaInicio;
+    return diff / (1000 * 60 * 60 * 24);
+  }
 
 }

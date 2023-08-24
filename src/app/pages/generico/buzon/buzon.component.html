@@ -1,0 +1,261 @@
+<!-- (selectedIndexChange)="selected.setValue($event)" -->
+
+<ngx-ui-loader [loaderId]="'load-buzon'"></ngx-ui-loader>
+
+<div class="row" *ngIf="bFrm">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12 texto-informacion">
+        Código Reporte: {{Codigo}}<br>
+        Categoria: {{Categoria}}<br>
+        Tipo de Reporte: {{TipoReporte  | uppercase}}<br>
+        Quien remite: V.-{{Cedula}} {{Nombre  | uppercase}} <br>
+        <hr>
+        {{Contenido | uppercase}} <br>
+        <hr>
+
+      </div>
+    </div>  
+    
+  
+
+    <div class="row">
+      <div class=" col-md-12">
+  
+        <mat-form-field appearance="outline">
+          <mat-label>Respuesta</mat-label>
+          <textarea matInput class="form-control" cols="30" rows="5" [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="Respuesta" value="{{Respuesta | uppercase}}" ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Correo Electrónico</mat-label>
+          <input matInput placeholder="Correo Electrónico" [(ngModel)]="Correo" value="{{Correo  | uppercase}}"
+            disabled="disabled">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfonos: </mat-label>
+          <input matInput placeholder="Teléfonos: " [(ngModel)]="Telefonos" value="{{Telefonos}}" disabled="disabled">
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <div class="text-right">
+      <button class="btn btn-dark" aria-label="Close" (click)="hideFrm()">
+        Guardar borrador</button>
+      <button class="btn btn-primary" aria-label="Close" (click)="hideFrm()">
+        Publicar</button>
+      <button class="btn btn-danger" aria-label="Close" (click)="hideFrm()">
+        Cancelar</button>
+  
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="row" *ngIf="!bFrm">
+  <div class="col-md-12">
+
+    <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="seleccionNavegacion($event)">
+      <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab">
+
+
+        <mat-selection-list style="padding: 15px; width: 100%;">
+          <mat-list *ngFor="let e of bzBuzon[i+1]; let j=index "
+            style="border-bottom: 1px rgba(224, 223, 223, 0.945) solid;">
+            <div class="row">
+              <div class="col-md-1">
+                <button mat-icon-button aria-label="Visibilidad" class="text-grey" *ngIf="!bEdicion"
+                  (click)="openDialog(observacion, e.idd, 0)" id="procesados">
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+
+                <button mat-icon-button aria-label="Visibilidad" class="text-grey" *ngIf="bEdicion"
+                  (click)="viewFrm(observacion, e, 0)" id="procesados">
+                  <mat-icon>edit</mat-icon>
+                </button>
+
+              </div>
+              <div class="col-md-2 texto-lista">
+                <font color="brown">{{ setCodigo(e.idd) }}</font> | {{ e.tdoc | uppercase }}
+              </div>
+
+              <div class="col-md-4 texto-detalle">
+                {{ (e.cont.length>6)? (e.cont | slice:0:40)+'...':(e.cont)}}
+              </div>
+              <div class="col-md-2 texto-detalle">
+                {{ e.saso }}
+              </div>
+              <div class="col-md-2 text-right texto-detalle">
+                {{ e.fcre | date:"dd/MM/yyyy" }}
+              </div>
+              <div class="col-md-1 text-right ">
+                <button mat-icon-button aria-label="Privado" (click)="openDialog(detalle, e, 1)">
+                  <mat-icon class="text-grey" style="font-size: 27px;margin-top: 2px;">preview</mat-icon>
+                </button>
+              </div>
+
+            </div>
+          </mat-list>
+        </mat-selection-list>
+
+
+      </mat-tab>
+    </mat-tab-group>
+
+  </div>
+</div>
+
+<ng-template #observacion let-modal>
+
+  <h4 class="modal-title text-blue" id="modal-basic-title">Acciones Generales</h4>
+
+
+  <div class=" col-md-12">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Observaciones</mat-label>
+      <textarea matInput class="form-control" cols="30" rows="3" [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="Observacion"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="col-md-12">
+    <mat-form-field appearance="outline">
+      <mat-label>Acción</mat-label>
+      <mat-select placeholder="Acción" (selectionChange)="selChange($event)" [(ngModel)]="AccionTexto">
+        <mat-option *ngFor="let e of lstAcciones" value="{{e.valor}}">{{e.texto}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-12" *ngIf="clasificacion">
+    <mat-form-field appearance="outline">
+      <mat-label>Area</mat-label>
+      <mat-select placeholder="Area" [(ngModel)]="cmbDestino">
+        <mat-option *ngFor="let x of lstEstados" value="{{ x.id }}">{{ x.obse }}</mat-option>
+      </mat-select>
+
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-12" *ngIf="vplazo">
+    <div class="form-group" style="width:100%">
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha de Plazo / Alerta</mat-label>
+        <input matInput [matDatepicker]="ypicker" [(ngModel)]="extender_plazo">
+        <mat-datepicker #ypicker></mat-datepicker>
+        <mat-icon matSuffix (click)="ypicker.open()">event</mat-icon>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+
+  <hr>
+  <div class="text-right">
+
+    <button class="btn bg-gradient-info text-white " (click)="insertarObservacion();closeDialog()" id="btnaceptar">
+      <span class="fa fa-check"></span>&nbsp;&nbsp;Aceptar </button>
+    <button class="btn btn-warning" aria-label="Close" (click)="closeDialog()">
+      <span class="fa fa-times"></span>&nbsp;&nbsp;Cancelar</button>
+
+  </div>
+</ng-template>
+
+
+
+
+<ng-template #detalle let-modal>
+
+  <h4 class="modal-title text-blue" id="modal-basic-title">Detalles generales del ticket</h4>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Código Reporte</mat-label>
+        <input matInput placeholder="Código Reporte" [(ngModel)]="Codigo" value="{{Codigo}}" disabled="disabled">
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo de Reporte</mat-label>
+        <input matInput placeholder="Tipo de Reporte" [(ngModel)]="TipoReporte" value="{{TipoReporte  | uppercase}}"
+          disabled="disabled">
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría</mat-label>
+        <input matInput placeholder="Categoría" [(ngModel)]="Categoria" value="{{Categoria | uppercase}}"
+          disabled="disabled">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Cédula</mat-label>
+        <input matInput placeholder="Cédula" [(ngModel)]="Cedula" value="{{Cedula}}" disabled="disabled">
+      </mat-form-field>
+    </div>
+    <div class="col-md-7">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre Completo</mat-label>
+        <input matInput placeholder="Nombre Completo" [(ngModel)]="Nombre" value="{{Nombre  | uppercase}}"
+          disabled="disabled">
+      </mat-form-field>
+    </div>
+    <div class="col-md-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Edad</mat-label>
+        <input matInput placeholder="Edad" [(ngModel)]="Edad" value="{{Edad}}" disabled="disabled">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <mat-form-field appearance="outline">
+        <mat-label>Correo Electrónico</mat-label>
+        <input matInput placeholder="Correo Electrónico" [(ngModel)]="Correo" value="{{Correo  | uppercase}}"
+          disabled="disabled">
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field appearance="outline">
+        <mat-label>Teléfonos: </mat-label>
+        <input matInput placeholder="Teléfonos: " [(ngModel)]="Telefonos" value="{{Telefonos}}" disabled="disabled">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class=" col-md-12">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contenido</mat-label>
+        <textarea matInput class="form-control" cols="30" rows="5" [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="Contenido" value="{{Contenido | uppercase}}" disabled="disabled"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="text-right">
+    <button class="btn btn-primary" aria-label="Close" (click)="closeDialog()">
+      Aceptar</button>
+
+  </div>
+</ng-template>
