@@ -10,7 +10,7 @@ import { ToastrService } from "ngx-toastr";
 import { UtilService } from "src/app/services/util/util.service";
 import { LoginService } from "src/app/services/seguridad/login.service";
 import { IWKFAlerta } from "src/app/services/inea/servicios.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 
 @Component({
@@ -83,6 +83,7 @@ export class BuzonComponent implements OnInit {
   ];
 
   constructor(
+    private router: Router,
     private apiService: ApiService,
     public dialog: MatDialog,
     private toastrService: ToastrService,
@@ -93,12 +94,18 @@ export class BuzonComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ngxService.startLoader("load-buzon");
+    this.ngxService.startLoader("load-buzon")
     if (this.rutaActiva.snapshot.params.id != undefined) {
       this.estadoOrigen = this.rutaActiva.snapshot.params.id;
-      console.log(this.estadoOrigen);
     }
-    this.ConsultarEstados();
+
+    let items = window.sessionStorage.getItem("estados");
+    if (items != undefined) {
+      this.lstEstados = JSON.parse(items);
+    } else {
+      this.router.navigate(["/principal"]);
+    }
+
     this.ConsultarEstatus();
     this.cargarAcciones();
   }
@@ -120,25 +127,6 @@ export class BuzonComponent implements OnInit {
     this.bEdicion = e == 1 ? true : false;
   }
 
-  ConsultarEstados() {
-    //WKF_CEstados
-    this.xAPI.funcion = "WKF_CEstados";
-    this.xAPI.parametros = "%";
-    this.xAPI.valores = "";
-    this.apiService.Ejecutar(this.xAPI).subscribe(
-      (data) => {
-        console.log(data);
-        this.lstEstados = data.Cuerpo.filter((e) => {
-          return (e.esta == 1 && e.id != 3) || e.id == 1;
-        });
-        //this.apiService.Mensaje('Proceso exitoso se ha ' + data.msj, 'Felicitaciones', 'success', 'wkf')
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
-  }
-
   ConsultarEstatus() {
     //WKF_CEstados
     this.xAPI.funcion = "WKF_CEstatus";
@@ -155,6 +143,7 @@ export class BuzonComponent implements OnInit {
             this.estadoOrigen.toString() + "," + e.idc.toString();
           await this.apiService.Ejecutar(this.xAPI).subscribe(
             (xdata) => {
+              console.log(xdata);
               this.bzBuzon[e.idc] = xdata.Cuerpo;
             },
             (err) => {
@@ -163,6 +152,8 @@ export class BuzonComponent implements OnInit {
           );
         });
         this.ngxService.stopLoader("load-buzon");
+        this.tabs.push("NOTIFICACIONES");
+        this.selected.setValue(0);
       },
       (err) => {
         console.error(err);
@@ -203,28 +194,32 @@ export class BuzonComponent implements OnInit {
     this.xAPI.parametros = "";
     // console.log(this.xAPI);
     console.log(this.numControl);
-    // 
+    //
     this.apiService.Ejecutar(this.xAPI).subscribe(
-      async data => {
+      async (data) => {
         switch (this.AccionTexto) {
-          case '0'://Aceptar y promover el documento
-            this.promoverBuzon(0, this.utilService.FechaActual())
+          case "0": //Aceptar y promover el documento
+            this.promoverBuzon(0, this.utilService.FechaActual());
             this.quitarElemento(this.numControl, 1);
             break;
-          case '1'://Redistribuir 
-            this.estatusDestino = 1
+          case "1": //Redistribuir
+            this.estatusDestino = 1;
             this.quitarElemento(this.numControl, 0);
-            this.redistribuir(13) //Seguridad Ciudadana...
+            this.redistribuir(13); //Seguridad Ciudadana...
             break;
-          case '3'://Elige el destino por opinión
-            this.redistribuir(0)
+          case "2": //Aceptar y promover el documento
+            this.promoverBuzon(0, this.utilService.FechaActual());
+            this.quitarElemento(this.numControl, 1);
             break;
-
+          case "3": //Elige el destino por opinión
+            this.redistribuir(0);
+            break;
         }
       },
       (errot) => {
         this.toastrService.error(errot, `GDoc Wkf.DocumentoObservacion`);
-    })
+      }
+    );
   }
 
   async promoverBuzon(activo: number, sfecha: string) {
@@ -288,14 +283,14 @@ export class BuzonComponent implements OnInit {
       this.loginService.Usuario.id +
       "," +
       this.numControl;
-    console.log(this.xAPI.parametros);
+    // console.log(this.xAPI.parametros);
     await this.apiService.Ejecutar(this.xAPI).subscribe(
       (data) => {
-        let sfecha = this.extender_plazo==undefined?this.utilService.FechaActual():this.utilService.ConvertirFecha(this.extender_plazo)
-        this.guardarAlerta(
-          1,
-          sfecha
-        );
+        let sfecha =
+          this.extender_plazo == undefined
+            ? this.utilService.FechaActual()
+            : this.utilService.ConvertirFecha(this.extender_plazo);
+        this.guardarAlerta(1, sfecha);
         this.toastrService.success(
           "El documento ha sido redistribuido segun su selección",
           `GDoc Wkf.DocumentoObservacion`
@@ -325,6 +320,7 @@ export class BuzonComponent implements OnInit {
     this.apiService.Ejecutar(this.xAPI).subscribe(
       async (alerData) => {
         console.log(alerData);
+        this.ngxService.stopLoader("load-buzon")
       },
       (errot) => {
         this.toastrService.error(errot, `GDoc Wkf.AAlertas`);
@@ -363,19 +359,20 @@ export class BuzonComponent implements OnInit {
   }
 
   mapElement(e) {
-    this.numControl = e.idd;
+    this.numControl = e.idd
 
-    this.Codigo = this.setCodigo(e.idd);
-    this.TipoReporte = e.tdoc;
-    this.Categoria = this.setCategoria(e.udep);
-    this.Nombre = e.nori;
-    this.Cedula = e.saso;
-    this.Contenido = e.cont.toString().toUpperCase();
+    this.Codigo = this.setCodigo(e.idd)
+    this.TipoReporte = e.tdoc
+    this.Categoria = this.setCategoria(e.udep)
+    this.Nombre = e.nori
+    this.Cedula = e.saso
+    this.Contenido = e.cont.toString().toUpperCase()
     this.Correo = e.remi
+    this.Respuesta = e.inst
   }
 
   openDialog(content, e, tipo): void {
-    let sWidth = "600px";
+    let sWidth = "600px"
 
     // this.hashcontrol = btoa( "D" + this.numControl) //Cifrar documentos
     if (tipo == 1) {
@@ -399,13 +396,13 @@ export class BuzonComponent implements OnInit {
     this.mapElement(e);
 
     this.xAPI.funcion = "WKF_CDocumentoDetalle";
-    
+
     this.xAPI.parametros = `${this.estatusActual},${this.estatusActual},${this.numControl}`;
-    this.xAPI.valores = '';
-    console.log(this.xAPI.parametros)
+    this.xAPI.valores = "";
+    // console.log(this.xAPI.parametros)
     this.apiService.Ejecutar(this.xAPI).subscribe(
       async (data) => {
-        console.log(data)
+        // console.log(data)
         this.ngxService.stopLoader("load-buzon");
       },
       (errot) => {
@@ -416,8 +413,10 @@ export class BuzonComponent implements OnInit {
   }
 
   hideFrm() {
-    this.bEdicion = false;
-    this.bFrm = false;
+    this.bEdicion = false
+    this.bFrm = false
+    this.selected.setValue(1)
+    this.bEdicion = true
   }
 
   closeDialog() {
@@ -426,5 +425,40 @@ export class BuzonComponent implements OnInit {
 
   setCategoria(id): string {
     return id == "0" ? "Servicios" : "Trámites";
+  }
+
+
+  actualizarDocumento(estatus: number ) {
+    this.ngxService.startLoader("load-buzon")
+    let rsp = {
+      identificador: this.numControl,
+      respuesta: this.Respuesta.toUpperCase(),
+      usuario: this.loginService.Usuario.id,
+    };
+
+    
+
+    this.xAPI.funcion = "WKF_ADocumentoRespuesta";
+    this.xAPI.valores = JSON.stringify(rsp);
+
+    this.xAPI.parametros = ``;
+    this.apiService.Ejecutar(this.xAPI).subscribe(
+      (data) => {
+        
+        if (estatus == 0){
+          this.promoverBuzon(0, this.utilService.FechaActual());
+          this.quitarElemento(this.numControl, 1);
+          this.hideFrm()
+          return
+        }
+
+        this.ngxService.stopLoader("load-buzon")
+        this.hideFrm()
+        
+      },
+      (errot) => {
+        this.toastrService.error(errot, `GDoc WKF_ADocumentoRespuesta`);
+      }
+    ); //
   }
 }

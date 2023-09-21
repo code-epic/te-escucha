@@ -22,7 +22,6 @@ export class AdminLayoutComponent implements OnInit {
     const pagina = this.ruta.url.split("/")
     this.pagina = pagina[1].toUpperCase()
     this.msj.contenido$.subscribe( e => {
-      console.log(e)
       this.pagina = e
     })
 
@@ -32,6 +31,10 @@ export class AdminLayoutComponent implements OnInit {
     
     this.pagina = url.toUpperCase()
     this.ruta.navigate(['/' + url]);
+  }
+
+  Atras(){
+    history.back()
   }
 
 }
