@@ -3,6 +3,24 @@
 <ngx-ui-loader [loaderId]="'load-buzon'"></ngx-ui-loader>
 
 <div class="row" *ngIf="bFrm">
+
+
+  <div class="col-md-10">
+    <h4 class="modal-title text-blue" id="modal-basic-title">Detalles generales del reporte</h4>
+  </div>
+  <div class="col-md-2 text-right">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle value="historial">
+        <mat-icon class="texto-gray">history</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="close" (click)="hideFrm()">
+        <mat-icon class="texto-gray">close</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+
+
   <div class="col-md-12">
     <div class="row">
       <div class="col-md-12 texto-informacion">
@@ -64,7 +82,6 @@
 
 
 
-
 <div class="row" *ngIf="!bFrm">
   <div class="col-md-12">
     <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="seleccionNavegacion($event)">
@@ -74,18 +91,23 @@
             style="border-bottom: 1px rgba(224, 223, 223, 0.945) solid;">
             <div class="row">
               <div class="col-md-1">
-                <button mat-icon-button aria-label="Visibilidad" class="text-grey" *ngIf="!bEdicion"
+                <button mat-icon-button aria-label="Visibilidad" class="text-grey" *ngIf="bR"
                   (click)="openDialog(observacion, e.idd, 0)" id="procesados">
                   <mat-icon>add_circle</mat-icon>
                 </button>
-                <button mat-icon-button aria-label="Visibilidad" class="text-grey" *ngIf="bEdicion"
-                  (click)="viewFrm(observacion, e, 0)" id="procesados">
-                  <mat-icon>edit</mat-icon>
+                <button mat-icon-button aria-label="Visibilidad" class="text-primary" *ngIf="bP"
+                  (click)="viewFrm(observacion, e, 0, i, j)" id="procesados">
+                  <mat-icon>edit</mat-icon>&nbsp;Editar
                 </button>
-
+                <button mat-icon-button aria-label="Hecho" class="text-green" *ngIf="bC">
+                  <mat-icon>done_all</mat-icon>&nbsp;
+                  <font color="green" class="text-green">Hecho</font>
+                </button>
               </div>
+
               <div class="col-md-2 texto-lista">
                 <font color="brown">{{ setCodigo(e.idd) }}</font> - {{ e.tdoc | uppercase }}
+
               </div>
 
               <div class="col-md-5 texto-detalle">
@@ -96,13 +118,17 @@
               </div>
               <div class="col-md-1 text-right ">
                 <button mat-icon-button aria-label="Privado" (click)="openDialog(detalle, e, 1)">
-                  <mat-icon class="text-grey" style="font-size: 27px;margin-top: 2px;">preview</mat-icon>
+                  <mat-icon class="text-grey" *ngIf="e.inst==''"
+                    style="font-size: 27px;margin-top: 2px;">preview</mat-icon>
+                  <mat-icon class="text-grey" *ngIf="e.inst!=''" matBadge="!" matBadgeOverlap="false"
+                    class="demo-section" matBadgeColor="primary"
+                    style="font-size: 27px;margin-top: 2px;">preview</mat-icon>
                 </button>
               </div>
 
             </div>
           </mat-list>
-          
+
         </mat-selection-list>
 
 
@@ -180,8 +206,7 @@
 
   <div class="row align-items-center">
     <div class="col">
-      <!-- <h3 class="mb-0">Ranking de casos</h3> -->
-      <h4 class="modal-title text-blue" id="modal-basic-title">Detalles generales del ticket</h4>
+      <h4 class="modal-title text-blue" id="modal-basic-title">Detalles generales del reporte</h4>
     </div>
     <div class="col text-right">
       <a href="#!" class="btn btn-sm btn-dark">Ver historial</a>

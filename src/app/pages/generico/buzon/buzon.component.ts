@@ -25,11 +25,17 @@ export class BuzonComponent implements OnInit {
   public estatusActual = 1;
   public estatusDestino = 1; // que posicion ocupa
   public estadoDestino = 0; //para donde va en un flujo normal
+  public posicionDocumento = 0; //para donde va en un flujo normal
+  public selecionDocumento = 0
 
   clasificacion = false;
   vplazo = false;
   bEdicion = false;
   bFrm = false;
+
+  bR = true;
+  bP = false;
+  bC = false;
 
   tabs = [];
   bzBuzon = [];
@@ -94,7 +100,7 @@ export class BuzonComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ngxService.startLoader("load-buzon")
+    this.ngxService.startLoader("load-buzon");
     if (this.rutaActiva.snapshot.params.id != undefined) {
       this.estadoOrigen = this.rutaActiva.snapshot.params.id;
     }
@@ -124,7 +130,23 @@ export class BuzonComponent implements OnInit {
   }
 
   seleccionNavegacion(e) {
-    this.bEdicion = e == 1 ? true : false;
+    this.bR = false
+    this.bP = false
+    this.bC = false
+    
+    switch (e) {
+      case 0:
+        this.bR = true
+        break;
+      case 1:
+        this.bP = true
+        break;
+      case 2:
+        this.bC = true
+        break;
+      default:
+        break;
+    }
   }
 
   ConsultarEstatus() {
@@ -143,7 +165,7 @@ export class BuzonComponent implements OnInit {
             this.estadoOrigen.toString() + "," + e.idc.toString();
           await this.apiService.Ejecutar(this.xAPI).subscribe(
             (xdata) => {
-              console.log(xdata);
+              // console.log(xdata);
               this.bzBuzon[e.idc] = xdata.Cuerpo;
             },
             (err) => {
@@ -193,7 +215,7 @@ export class BuzonComponent implements OnInit {
 
     this.xAPI.parametros = "";
     // console.log(this.xAPI);
-    console.log(this.numControl);
+    // console.log(this.numControl);
     //
     this.apiService.Ejecutar(this.xAPI).subscribe(
       async (data) => {
@@ -320,7 +342,7 @@ export class BuzonComponent implements OnInit {
     this.apiService.Ejecutar(this.xAPI).subscribe(
       async (alerData) => {
         console.log(alerData);
-        this.ngxService.stopLoader("load-buzon")
+        this.ngxService.stopLoader("load-buzon");
       },
       (errot) => {
         this.toastrService.error(errot, `GDoc Wkf.AAlertas`);
@@ -359,20 +381,20 @@ export class BuzonComponent implements OnInit {
   }
 
   mapElement(e) {
-    this.numControl = e.idd
+    this.numControl = e.idd;
 
-    this.Codigo = this.setCodigo(e.idd)
-    this.TipoReporte = e.tdoc
-    this.Categoria = this.setCategoria(e.udep)
-    this.Nombre = e.nori
-    this.Cedula = e.saso
-    this.Contenido = e.cont.toString().toUpperCase()
-    this.Correo = e.remi
-    this.Respuesta = e.inst
+    this.Codigo = this.setCodigo(e.idd);
+    this.TipoReporte = e.tdoc;
+    this.Categoria = this.setCategoria(e.udep);
+    this.Nombre = e.nori;
+    this.Cedula = e.saso;
+    this.Contenido = e.cont.toString().toUpperCase();
+    this.Correo = e.remi;
+    this.Respuesta = e.inst;
   }
 
   openDialog(content, e, tipo): void {
-    let sWidth = "600px"
+    let sWidth = "600px";
 
     // this.hashcontrol = btoa( "D" + this.numControl) //Cifrar documentos
     if (tipo == 1) {
@@ -391,32 +413,35 @@ export class BuzonComponent implements OnInit {
     });
   }
 
-  viewFrm(content, e, tipo): void {
+  viewFrm(content, e, tipo, seleccion: number, posicion: number): void {
+    this.posicionDocumento = posicion
+    this.selecionDocumento = seleccion+1
+
     this.ngxService.startLoader("load-buzon");
     this.mapElement(e);
-
     this.xAPI.funcion = "WKF_CDocumentoDetalle";
-
     this.xAPI.parametros = `${this.estatusActual},${this.estatusActual},${this.numControl}`;
     this.xAPI.valores = "";
-    // console.log(this.xAPI.parametros)
+    
     this.apiService.Ejecutar(this.xAPI).subscribe(
       async (data) => {
         // console.log(data)
         this.ngxService.stopLoader("load-buzon");
+        this.bFrm = true;
+
       },
       (errot) => {
         this.toastrService.error(errot, `GDoc Wkf.AAlertas`);
       }
     ); //
-    this.bFrm = true;
+    
   }
 
   hideFrm() {
-    this.bEdicion = false
-    this.bFrm = false
-    this.selected.setValue(1)
-    this.bEdicion = true
+    this.bEdicion = false;
+    this.bFrm = false;
+    this.selected.setValue(1);
+    this.bEdicion = true;
   }
 
   closeDialog() {
@@ -427,34 +452,35 @@ export class BuzonComponent implements OnInit {
     return id == "0" ? "Servicios" : "Trámites";
   }
 
+  actualizarDocumento(estatus: number) {
 
-  actualizarDocumento(estatus: number ) {
-    this.ngxService.startLoader("load-buzon")
+    this.ngxService.startLoader("load-buzon");
     let rsp = {
       identificador: this.numControl,
       respuesta: this.Respuesta.toUpperCase(),
       usuario: this.loginService.Usuario.id,
     };
 
-    
+
+    this.bzBuzon[this.selecionDocumento][this.posicionDocumento].inst = this.Respuesta.toUpperCase()
 
     this.xAPI.funcion = "WKF_ADocumentoRespuesta";
     this.xAPI.valores = JSON.stringify(rsp);
+    
+    console.log(rsp);
 
     this.xAPI.parametros = ``;
     this.apiService.Ejecutar(this.xAPI).subscribe(
       (data) => {
-        
-        if (estatus == 0){
+        if (estatus == 0) {
           this.promoverBuzon(0, this.utilService.FechaActual());
           this.quitarElemento(this.numControl, 1);
-          this.hideFrm()
-          return
+          this.hideFrm();
+          return;
         }
 
-        this.ngxService.stopLoader("load-buzon")
-        this.hideFrm()
-        
+        this.ngxService.stopLoader("load-buzon");
+        this.hideFrm();
       },
       (errot) => {
         this.toastrService.error(errot, `GDoc WKF_ADocumentoRespuesta`);

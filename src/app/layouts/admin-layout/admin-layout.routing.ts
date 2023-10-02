@@ -13,6 +13,7 @@ import { CertificacionComponent } from 'src/app/pages/principal/tramites/certifi
 import { PilotajeComponent } from 'src/app/pages/principal/servicios/pilotaje/pilotaje.component';
 import { BuzonComponent } from 'src/app/pages/generico/buzon/buzon.component';
 import { AtencionComponent } from 'src/app/pages/principal/atencion/atencion.component';
+import { OperacionesComponent } from 'src/app/pages/principal/operaciones/operaciones.component';
 
 export const AdminLayoutRoutes: Routes = [
     {
@@ -52,8 +53,8 @@ export const AdminLayoutRoutes: Routes = [
         component: AtencionComponent,
         canActivate: [AuthGuardGuard]
     }, {
-        path: 'certificacion',
-        component: CertificacionComponent,
+        path: 'operaciones',
+        component: OperacionesComponent,
         canActivate: [AuthGuardGuard]
     },
 

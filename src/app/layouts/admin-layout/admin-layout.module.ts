@@ -41,6 +41,8 @@ import { CertificacionComponent } from 'src/app/pages/principal/tramites/certifi
 import { RenaveComponent } from 'src/app/pages/principal/tramites/renave/renave.component';
 import { BuzonComponent } from 'src/app/pages/generico/buzon/buzon.component';
 import { AtencionComponent } from 'src/app/pages/principal/atencion/atencion.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { OperacionesComponent } from 'src/app/pages/principal/operaciones/operaciones.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   "bgsColor": "#79c680",
@@ -107,6 +109,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MatStepperModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatBadgeModule,
 
   ],
   declarations: [
@@ -124,7 +127,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     CertificacionComponent,
     RenaveComponent,
     BuzonComponent,
-    AtencionComponent
+    AtencionComponent,
+    OperacionesComponent
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},

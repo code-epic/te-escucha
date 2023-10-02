@@ -17,25 +17,21 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatListModule } from '@angular/material/list'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CustomPaginator } from './paginator-intl'; //NLS configuracion de idiomas
-
 import { MatPaginatorIntl } from '@angular/material/paginator';
-
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NgxUiLoaderModule,  NgxUiLoaderConfig } from "ngx-ui-loader";
-
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatCommonModule } from '@angular/material/core';
 import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
 import { AuthGuardGuard } from './services/seguridad/auth-guard.guard';
 import { HashLocationStrategy, JsonPipe, LocationStrategy } from '@angular/common';
-
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { AuthInterceptorService } from './services/seguridad/auth-interceptor.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
-
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { MatTableModule } from '@angular/material/table';
 
@@ -99,6 +95,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ToastContainerModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     MatToolbarModule,
+    MatBadgeModule,
     ToastrModule.forRoot({
       closeButton: false,
       newestOnTop: false,

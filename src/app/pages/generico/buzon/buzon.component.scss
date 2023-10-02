@@ -141,3 +141,8 @@ mat-chip {
   background-color: #3b3232;
 }
 
+
+
+.demo-section + .demo-section {
+  margin-top: 16px;
+}
