@@ -33,7 +33,7 @@ export class ChatbotComponent implements OnInit {
     pregunta: '',
     respuesta: '',
     descripcion: '',
-    idioma: '1',
+    idioma: 'es',
     clase: 'BASICO',
     tipo: '1'
   }
@@ -44,11 +44,31 @@ export class ChatbotComponent implements OnInit {
 
   constructor(private apiService : ApiService,
     private ngxService: NgxUiLoaderService,
-    private util: UtilService,) { }
+    private util: UtilService,) {
+      
+     }
 
   ngOnInit(): void {
+    this.Consultar()
   }
 
+
+  Consultar(){
+    this.ngxService.startLoader('load-chat')
+    this.xAPI.funcion = '_SYS_CChatBot'
+    this.xAPI.valores = {}
+    this.xAPI.parametros = ''
+    this.apiService.Ejecutar(this.xAPI).subscribe(
+      data => {
+        this.lstChat = data.Cuerpo;
+        this.ngxService.stopLoader('load-chat')
+      },
+      err => {
+        console.error(err);
+      }
+    )
+
+  }
 
   Guardar(){
     this.ngxService.startLoader('load-chat')
@@ -69,6 +89,13 @@ export class ChatbotComponent implements OnInit {
       }
 
     );
+  }
+
+  Limpiar(){
+    this.Chat.pregunta = ''
+    this.Chat.respuesta = ''
+
+
   }
 
 }

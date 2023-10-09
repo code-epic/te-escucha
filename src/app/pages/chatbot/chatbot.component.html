@@ -16,15 +16,20 @@
                         <div class="row">
 
                             <div class="col-md-2 texto-lista">
-                                {{ e.numero + '- ' + e.Saldos.fechainicio | uppercase }}
+                                {{ e.id | uppercase }}
                             </div>
-                            <div class="col-md-7 texto-detalle">
-                                {{ e.rif }} {{ e.razonsocial | uppercase}}
+                            <div class="col-md-4 texto-detalle">
+                                {{ e.pregunta | slice:0:30}} 
                             </div>
 
-                            <div class="col-md-2 texto-detalle">
-                                {{ e.plan | uppercase }}
+                            <div class="col-md-4 texto-detalle">
+                                {{ e.respuesta  | slice:0:30 }}
                             </div>
+                            <div class="col-md-1 texto-detalle">
+                                {{ e.tipo | uppercase }}
+                            </div>
+
+                        
 
                             <div class="col-md-1 text-right">
 
