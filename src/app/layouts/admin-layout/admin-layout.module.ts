@@ -43,6 +43,8 @@ import { BuzonComponent } from 'src/app/pages/generico/buzon/buzon.component';
 import { AtencionComponent } from 'src/app/pages/principal/atencion/atencion.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { OperacionesComponent } from 'src/app/pages/principal/operaciones/operaciones.component';
+import { ChatbotComponent } from 'src/app/pages/chatbot/chatbot.component';
+import { TecnlogiaComponent } from 'src/app/pages/principal/tecnlogia/tecnlogia.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   "bgsColor": "#79c680",
@@ -128,7 +130,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     RenaveComponent,
     BuzonComponent,
     AtencionComponent,
-    OperacionesComponent
+    OperacionesComponent,
+    ChatbotComponent,
+    TecnlogiaComponent
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},

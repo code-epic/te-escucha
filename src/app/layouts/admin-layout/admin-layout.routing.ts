@@ -14,6 +14,8 @@ import { PilotajeComponent } from 'src/app/pages/principal/servicios/pilotaje/pi
 import { BuzonComponent } from 'src/app/pages/generico/buzon/buzon.component';
 import { AtencionComponent } from 'src/app/pages/principal/atencion/atencion.component';
 import { OperacionesComponent } from 'src/app/pages/principal/operaciones/operaciones.component';
+import { ChatbotComponent } from 'src/app/pages/chatbot/chatbot.component';
+import { TecnlogiaComponent } from 'src/app/pages/principal/tecnlogia/tecnlogia.component';
 
 export const AdminLayoutRoutes: Routes = [
     {
@@ -25,12 +27,20 @@ export const AdminLayoutRoutes: Routes = [
         component: BuscadorComponent,
         canActivate: [AuthGuardGuard]
     }, {
+        path: 'chatbot',
+        component: ChatbotComponent,
+        canActivate: [AuthGuardGuard]
+    }, {
         path: 'perfil',
         component: PerfilComponent,
         canActivate: [AuthGuardGuard]
     }, {
         path: 'configurar',
         component: ConfigurarComponent,
+        canActivate: [AuthGuardGuard]
+    }, {
+        path: 'tecnologia',
+        component: TecnlogiaComponent,
         canActivate: [AuthGuardGuard]
     }, {
         path: 'reportes',

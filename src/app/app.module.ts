@@ -35,6 +35,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { MatTableModule } from '@angular/material/table';
 
+
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   "bgsColor": "#79c680",
   "bgsOpacity": 0.2,
@@ -108,8 +109,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent,
- 
+    AuthLayoutComponent 
   ],
   providers:  [
     {
