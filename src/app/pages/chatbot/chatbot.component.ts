@@ -1,3 +1,4 @@
+import { utf8Encode } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { stringify } from 'querystring';
@@ -73,6 +74,7 @@ export class ChatbotComponent implements OnInit {
   Guardar(){
     this.ngxService.startLoader('load-chat')
     this.xAPI.funcion = '_SYS_IChatBot'
+    //this.Chat.pregunta = utf8Encode(this.Chat.pregunta).toString();
     this.xAPI.valores = JSON.stringify(this.Chat)
     this.apiService.Ejecutar(this.xAPI).subscribe(
       data => {
@@ -82,6 +84,7 @@ export class ChatbotComponent implements OnInit {
           "success",
           "ChatBot"
         );
+        this.Limpiar()
         this.ngxService.stopLoader('load-chat')
       },
       err => {
