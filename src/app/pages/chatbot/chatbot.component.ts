@@ -101,4 +101,8 @@ export class ChatbotComponent implements OnInit {
 
   }
 
+  getTipo(tipo) : string {
+    return tipo == 1?'ACTIVO':'INACTIVO'
+  }
+
 }

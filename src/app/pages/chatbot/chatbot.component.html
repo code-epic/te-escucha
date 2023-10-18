@@ -19,14 +19,14 @@
                                 {{ e.id | uppercase }}
                             </div>
                             <div class="col-md-4 texto-detalle">
-                                {{ e.pregunta | slice:0:30}} 
+                                {{ e.pregunta | slice:0:40}} 
                             </div>
 
                             <div class="col-md-4 texto-detalle">
-                                {{ e.respuesta  | slice:0:30 }}
+                                {{ e.respuesta  | slice:0:40 }}
                             </div>
                             <div class="col-md-1 texto-detalle">
-                                {{ e.tipo | uppercase }}
+                                {{ getTipo(e.tipo) | uppercase }}
                             </div>
 
                         
