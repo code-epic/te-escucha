@@ -1,5 +1,6 @@
 <ngx-ui-loader [loaderId]="'load-chat'"></ngx-ui-loader>
-<mat-tab-group mat-stretch-tabs class="example-stretched-tabs" style="padding:10px;">
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs" (selectedTabChange)="tabActive($event)"
+[selectedIndex]="selectedIndex" style="padding:10px;">
     <mat-tab>
 
         <ng-template mat-tab-label>
@@ -28,8 +29,6 @@
                             <div class="col-md-1 texto-detalle">
                                 {{ getTipo(e.tipo) | uppercase }}
                             </div>
-
-                        
 
                             <div class="col-md-1 text-right">
 
@@ -61,8 +60,7 @@
                     <div class="col-md-4">
                         <mat-form-field appearance="outline">
                             <mat-label>Plan</mat-label>
-                            <input matInput placeholder="Plan" [(ngModel)]="Chat.clase"
-                                value="{{Chat.clase}}" disabled="disabled">
+                            <input matInput placeholder="Plan" [(ngModel)]="Chat.clase" value="{{Chat.clase}}" disabled="disabled">
                         </mat-form-field>
                     </div>
                     <div class="col-md-4">
